@@ -68,7 +68,7 @@ choice = st.radio("", list(opts.keys()), index=0 if st.session_state.answers[st.
 st.session_state.answers[st.session_state.idx] = choice
 
 # Navegação
-col1, col2, col3 = st.columns([1, 1, 1])
+col1, _, col3 = st.columns([1, 1, 1])
 with col1:
     if st.session_state.idx > 0:
         st.button("⬅️ Anterior", on_click=prev_q)
@@ -103,8 +103,8 @@ if st.session_state.idx == len(perguntas) - 1 and st.session_state.answers[-1]:
         st.success(f"**Você é como... {mais}!**")
         st.write(descr[mais])
 
-        img = Path(f"cards/{mais.lower()}.png")
-        if img.exists():
-            st.image(str(img), use_column_width=True)
+        img_path = Path(f"cards/{mais}.png")  # usa nome com maiúscula
+        if img_path.exists():
+            st.image(str(img_path), use_column_width=True)
         else:
-            st.info("Imagem não encontrada em cards/")
+            st.error(f"Imagem não encontrada em cards/: {img_path.name}")
